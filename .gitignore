@@ -1,5 +1,7 @@
 Shop/src
 Shop/database
+Shop/ssl/prestashop.crt
+Shop/ssl/prestashop.key
 Shop/db_dump
 scraper/venv
 .venv
