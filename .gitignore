@@ -3,3 +3,4 @@ Shop/database
 Shop/db_dump
 scraper/venv
 .venv
+__pycache__
