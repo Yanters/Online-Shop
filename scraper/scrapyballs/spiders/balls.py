@@ -1,4 +1,6 @@
 from concurrent.futures.thread import ThreadPoolExecutor
+from typing import Any, Optional
+import requests
 import scrapy
 import json
 import os
@@ -15,10 +17,17 @@ class BallsSpider(scrapy.Spider):
     allowed_domains = ["bombkarnia.pl"]
     start_urls = ['https://bombkarnia.pl/sklep/']
 
+    def __init__(self):
+        if not os.path.exists('../results'):
+                os.makedirs('../results')
+        if not os.path.exists('../results/images'):
+                os.makedirs('../results/images')
+
     def parse(self, response):
         pages_amount = int(response.css('div.container nav.woocommerce-pagination ul.page-numbers li a::text').extract()[-1])
 
         products = response.css('div.products')
+
         for p in products.xpath('./div'):
             product_link = p.css('.box-text .title-wrapper .name a::attr(href)').get()
             yield scrapy.Request(product_link, callback=self.parse_product)
@@ -30,9 +39,6 @@ class BallsSpider(scrapy.Spider):
             yield scrapy.Request(next_page, callback=self.parse)
         else:
             # Write to file
-            if not os.path.exists('../results'):
-                os.makedirs('../results')
-
             with open('../results/products.json', 'w', encoding='utf-8') as f:
                 json.dump(all_products, f, indent=4, ensure_ascii=False, separators=(',', ': '))
 
@@ -49,7 +55,13 @@ class BallsSpider(scrapy.Spider):
         product_images_html = response.css('div.woocommerce-product-gallery__image a')
         product_images = []
         for image_html in product_images_html.xpath('./img'):
-            product_images.append(image_html.css('::attr(data-src)').get())
+            image_url = image_html.css('::attr(data-src)').get()
+            img_data = requests.get(image_url).content
+            img_name = image_url.split('/')[-1] 
+            # product_images.append(image_url)
+            product_images.append(img_name)
+            with open(f'../results/images/{img_name}', 'wb') as handler:
+                handler.write(img_data)
 
         product = {
             'link': product_link,

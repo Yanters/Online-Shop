@@ -1,7 +1,9 @@
 Shop/src
 Shop/database
+Shop/db_dump
+scraper/venv
+__pycache__
 Shop/ssl/prestashop.crt
 Shop/ssl/prestashop.key
-Shop/db_dump
 scraper/venv
 .venv
