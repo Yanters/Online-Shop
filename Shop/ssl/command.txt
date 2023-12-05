@@ -1,0 +1,1 @@
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout prestashop.key -out prestashop.crt -subj "/C=PL/ST=Pomorskie/L=Gdansk/O=Kule Hermiony/OU=Kule Hermiony/CN=localhost"

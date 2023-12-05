@@ -2,5 +2,8 @@ Shop/src
 Shop/database
 Shop/db_dump
 scraper/venv
-.venv
 __pycache__
+Shop/ssl/prestashop.crt
+Shop/ssl/prestashop.key
+scraper/venv
+.venv

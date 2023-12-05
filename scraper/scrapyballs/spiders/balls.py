@@ -27,7 +27,8 @@ class BallsSpider(scrapy.Spider):
         pages_amount = int(response.css('div.container nav.woocommerce-pagination ul.page-numbers li a::text').extract()[-1])
 
         products = response.css('div.products')
-        for p in products.xpath('./div')[:1]:
+
+        for p in products.xpath('./div'):
             product_link = p.css('.box-text .title-wrapper .name a::attr(href)').get()
             yield scrapy.Request(product_link, callback=self.parse_product)
 
