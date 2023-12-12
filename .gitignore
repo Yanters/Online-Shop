@@ -7,3 +7,4 @@ Shop/ssl/prestashop.crt
 Shop/ssl/prestashop.key
 scraper/venv
 .venv
+results/images
