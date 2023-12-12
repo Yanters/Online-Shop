@@ -8,4 +8,4 @@ Shop/ssl/prestashop.key
 scraper/venv
 .venv
 Shop/venv
-results/**
+results/images
