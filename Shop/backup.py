@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     if OPERATION == 'extract':
         # Choose to extract db or data
-        option = input('Extract database or data? (db/dataa): ')
+        option = input('Extract database or data? (db/data): ')
         if option == 'db':
             # Extract database
             backups = display_available_backups('backup')
