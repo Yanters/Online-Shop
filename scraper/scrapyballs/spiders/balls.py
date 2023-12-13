@@ -67,7 +67,7 @@ class BallsSpider(scrapy.Spider):
             img_name = img_name.replace('.jpg', '.png').replace('.jpeg', '.png').replace('.gif', '.png').replace('.bmp', '.png').replace('.webp', '.png').replace('.ico', '.png').replace('.svg', '.png').replace('.tif', '.png').replace('.tiff', '.png')
             img = Image.open(BytesIO(img_data))
             img = img.convert('RGB')
-            img.save(f'../results/images/{img_name}', 'JPEG')
+            img.save(f'../results/images/{img_name}', 'PNG')
             product_images.append(img_name)
 
         product = {
