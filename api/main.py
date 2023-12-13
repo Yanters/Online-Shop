@@ -47,20 +47,26 @@ def load_category(name: str, parent_id: int = None):
     return category_id
 
 def delete_all_categories():
-    print("\n#######################")
+    print("\n\n#######################")
     print("#                     #")
     print("# Deleting categories #")
     print("#                     #")
     print("#######################\n")
+
     categories = prestashop.get('categories')
-    for category in categories['categories']['category']:
-        category_id = int(category['attrs']['id'])
-        if category_id not in [1, 2]:
+    if categories:
+        category_ids = []
+        for category in categories['categories']['category']:
+            category_id = int(category['attrs']['id'])
+            if category_id not in [1, 2]:
+                category_ids.append(category_id)
+                
+        if category_ids:
             try:
-                prestashop.delete("categories", resource_ids=category_id)
-                print(f"Deleted category {category_id}")
+                prestashop.delete("categories", resource_ids=category_ids)
+                print(f"Deleted {len(category_ids)} categories")
             except:
-                print("[ERROR] Error while deleting category")
+                print("[ERROR] Error while deleting categories")
                 
 def load_products():
     delete_all_products()
@@ -74,19 +80,21 @@ def load_products():
     print("#######################\n")
     for product in products:
         product_id = load_product(product)
-        print("Product_ID: ", product_id)
         change_quantity(product_id)
-        # load_product_images(product_id, product["images"])
+        load_product_images(product_id, product["images"])
 
 def load_product(product):
     try:
-        default_category = prestashop.get("categories", options={
-            "filter[name]": product["categories"][0]
-        })
-        default_category_id = default_category["categories"]["category"]["attrs"]["id"]
+        product_categories = []
+        for category_name in product["categories"]:
+            category = prestashop.get("categories", options={
+                "filter[name]": category_name
+            })
+            category_id = category["categories"]["category"]["attrs"]["id"]
+            product_categories.append(category_id)
+
         product_schema["product"]["link_rewrite"]["language"]["value"] = re.sub(
             r"[^a-zA-Z0-9]+", "-", product["name"]).lower()
-        product_schema['product']['id_category_default'] = default_category_id
         product_schema['product']['name']['language']['value'] = product["name"]
         product_schema["product"]["meta_title"]["language"]["value"] = product["name"]
         product_schema["product"]["id_shop_default"] = 1
@@ -100,9 +108,16 @@ def load_product(product):
         product_schema["product"]["available_for_order"] = 1
         product_schema["product"]["minimal_quantity"] = 1
         product_schema["product"]["show_price"] = 1
+        product_schema['product']['id_category_default'] = product_categories[0]
+        product_schema["product"]["associations"]["categories"] = {
+            "category": [{"id": category_id} for category_id in product_categories]
+        }
+        product_schema["product"]["associations"]["categories"]["category"].append({"id": 2})
+
         response = prestashop.add('products', product_schema)
-        print(f"Added product {product['name']}")
-        return response['prestashop']['product']['id']
+        product_id = response['prestashop']['product']['id']
+        print(f"Added product {product_id}: {product['name']}")
+        return product_id
     except Exception as e:
         print(f"[ERROR] Error while adding product {product['name']}: {e}")
         
@@ -127,11 +142,12 @@ def load_product_images(product_id: int, images_names: [str]):
             print(f"Added image {image_name} to product {product_id}")
 
 def delete_all_products():
-    print("\n#######################")
+    print("\n\n#######################")
     print("#                     #")
     print("# Deleting products   #")
     print("#                     #")
     print("#######################\n")
+
     products = prestashop.get("products")["products"]
     if products:
         products_data = products["product"]
@@ -140,12 +156,12 @@ def delete_all_products():
             products_data = [products_data]
 
         product_ids = [int(product["attrs"]["id"]) for product in products_data]
-        for id in product_ids:
+        if product_ids:
             try: 
-                prestashop.delete("products", resource_id=id)
-                print(f"Deleted product {id}")
+                prestashop.delete("products", resource_ids=product_ids)
+                print(f"Deleted {len(product_ids)} products")
             except: 
-                print("[ERROR] Error while deleting product")
+                print("[ERROR] Error while deleting products")
                 
 
     features = prestashop.get("product_features")["product_features"]
@@ -157,12 +173,12 @@ def delete_all_products():
             features_data = [features_data]
 
         feature_ids = [int(feature["attrs"]["id"]) for feature in features_data]
-        for id in feature_ids:
+        if feature_ids:
             try:
-                prestashop.delete("product_features", resource_id=id)
-                print(f"Deleted feature {id}")
+                prestashop.delete("product_features", resource_ids=feature_ids)
+                print(f"Deleted {len(feature_ids)} features")
             except:
-                print("[ERROR] Error while deleting feature")
+                print("[ERROR] Error while deleting features")
                 
 
 if __name__ == "__main__":
