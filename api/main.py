@@ -19,6 +19,7 @@ def load_categories():
     print("#  Adding categories  #")
     print("#                     #")
     print("#######################\n")
+
     index = 2
     for category, subcategories in categories.items():
         parent_category_id = load_category(category, index)
@@ -70,6 +71,7 @@ def delete_all_categories():
                 
 def load_products():
     delete_all_products()
+    
     with open("../results/products.json") as file:
         products = json.load(file)
 
