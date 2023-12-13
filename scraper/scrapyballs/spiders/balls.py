@@ -52,7 +52,11 @@ class BallsSpider(scrapy.Spider):
         product_categories = response.css('span.posted_in a::text').getall()
         product_tags = response.css('span.tagged_as a::text').getall()
         product_short_description = response.css('div.product-short-description p::text').get()
+        if not product_short_description:
+            product_short_description = "Tutaj miał być krótki opis produktu, ale producent sklepu, z którego pobieramy produkty go nie zapewnił. Przepraszamy za utrudnienia."
         product_description = response.css('div.woocommerce-Tabs-panel--description p::text').getall()
+        if not product_description:
+             product_description = "Tutaj miał być długi i rozbudowany opis produktu, ale producent sklepu, z którego pobieramy produkty go nie zapewnił. Przepraszamy za utrudnienia."
         
         product_images_html = response.css('div.woocommerce-product-gallery__image a')
         product_images = []
