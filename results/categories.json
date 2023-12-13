@@ -1,0 +1,69 @@
+{
+    "Bombki Ślubne": {},
+    "Boże Narodzenie": {
+        "Bombki Figurki": [],
+        "Bombki okrągłe": [],
+        "Czuby": [],
+        "Dekoracje na Boże Narodzenie": [],
+        "Jajka Owalne": [],
+        "Klosze": [],
+        "Mini Bombki": [],
+        "Niezwykłe Rozwiązania": [],
+        "Zestawy bombek i ozdób choinkowych": []
+    },
+    "Ceramika": {},
+    "Dekoracje Wielkanoc": {},
+    "Kolekcje": {
+        "Anioły": [],
+        "Bajki Świata": [],
+        "Bałwanki": [],
+        "Bombki Ślubne": [],
+        "Bombki Warszawskie": [],
+        "Bombki z Ukrainy": [],
+        "Carska": [],
+        "Folk - Haft Regionalny": [],
+        "Garderoba": [],
+        "Hobby": [],
+        "Komozja Family": [],
+        "Kwiaty Wyspiańskiego": [],
+        "Mikołaje": [],
+        "Podróże": [],
+        "Polskie stroje": [],
+        "Serca": [],
+        "Smakołyki/Owoce": [],
+        "Staropolska": [],
+        "Wiktoriańska": [],
+        "Zwierzęta / Rośliny": []
+    },
+    "Prezenty": {
+        "Dla Kogo": [
+            "Dla Matki",
+            "Dla Niego",
+            "Dla Niej",
+            "Dla Ojca",
+            "Dla Par"
+        ],
+        "Ze względu na cenę": [
+            "Do 100 zł",
+            "Do 1000 zł",
+            "Do 250 zł",
+            "Do 500 zł"
+        ],
+        "Ze względu na okazję": [
+            "Boże Narodzenie",
+            "Chrzest Narodziny Dziecka",
+            "Dzień Babci/Dzień Dziadka",
+            "Rocznica Ślubu",
+            "Ślub",
+            "Urodziny",
+            "Walentynki",
+            "Wielkanoc"
+        ]
+    },
+    "Promocje": {},
+    "Wielkanoc": {
+        "Ozdoby szklane": [],
+        "Pisanki": [],
+        "Zestawy Wielkanoc": []
+    }
+}
