@@ -104,7 +104,7 @@ def load_product(product):
         print(f"Added product {product['name']}")
         return response['prestashop']['product']['id']
     except Exception as e:
-        print(e)
+        print(f"[ERROR] Error while adding product {product['name']}: {e}")
         
 def change_quantity(product_id: int) -> None:
     schema_id = prestashop.search("stock_availables", options={
