@@ -10,14 +10,21 @@ def load_categories():
     with open("../results/categories.json") as file:
         categories = json.load(file)
 
-    print("Adding categories...")
+    print("\n\n#######################")
+    print("#                     #")
+    print("#  Adding categories  #")
+    print("#                     #")
+    print("#######################\n")
     index = 2
     for category, subcategories in categories.items():
         parent_category_id = load_category(category, index)
+        print(f"Added category {category}")
         for subcategory, subsubcategories in subcategories.items():
             subcategory_id = load_category(subcategory, parent_category_id)
+            print(f"Added category {subcategory}")
             for subsubcategory in subsubcategories:
                 load_category(subsubcategory, subcategory_id)
+                print(f"Added category {subsubcategory}")
 
 def load_category(name: str, parent_id: int = None):
     category = prestashop.get('categories', options={
@@ -40,7 +47,11 @@ def load_category(name: str, parent_id: int = None):
     return category_id
 
 def delete_all_categories():
-    ids = []
+    print("\n#######################")
+    print("#                     #")
+    print("# Deleting categories #")
+    print("#                     #")
+    print("#######################\n")
     categories = prestashop.get('categories')
     for category in categories['categories']['category']:
         category_id = int(category['attrs']['id'])
@@ -49,6 +60,8 @@ def delete_all_categories():
                 prestashop.delete("categories", resource_ids=category_id)
             except:
                 pass
+            finally:
+                print(f"Deleted category {category_id}")
             
 
 if __name__ == "__main__":
