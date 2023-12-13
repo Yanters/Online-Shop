@@ -1,9 +1,11 @@
 from concurrent.futures.thread import ThreadPoolExecutor
-from typing import Any, Optional
+from io import BytesIO
 import requests
 import scrapy
+from PIL import Image
 import json
 import os
+from PIL import Image
 
 all_products = []
 
@@ -57,11 +59,12 @@ class BallsSpider(scrapy.Spider):
         for image_html in product_images_html.xpath('./img'):
             image_url = image_html.css('::attr(data-src)').get()
             img_data = requests.get(image_url).content
-            img_name = image_url.split('/')[-1] 
-            # product_images.append(image_url)
+            img_name = image_url.split('/')[-1]
+            img_name = img_name.replace('.jpg', '.png').replace('.jpeg', '.png').replace('.gif', '.png').replace('.bmp', '.png').replace('.webp', '.png').replace('.ico', '.png').replace('.svg', '.png').replace('.tif', '.png').replace('.tiff', '.png')
+            img = Image.open(BytesIO(img_data))
+            img = img.convert('RGB')
+            img.save(f'../results/images/{img_name}', 'JPEG')
             product_images.append(img_name)
-            with open(f'../results/images/{img_name}', 'wb') as handler:
-                handler.write(img_data)
 
         product = {
             'link': product_link,
