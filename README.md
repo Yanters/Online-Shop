@@ -51,9 +51,8 @@
 3. Go to localhost
 4. Install prestashop.
 5. Some important configurations
-    - nothing marked in SSL configuration
-    - Database IP = mariadb
-    - Database Password = admin
+    - Do not mark anythink in SSL configuration
+    - Set database informations as in you docker-compose file
 6. Wait until installation finish
 7. Change folder
     ```
@@ -124,7 +123,6 @@
 3. Enable CGI for PHP
 4. Save
 5. Generate key
-    - Key = JKCTYYE6FNEQRR3R3NFHM63VZ8FBPS72
 6. Select all permissions
 7. Save
 8. Go to
@@ -138,7 +136,8 @@
     ```
     cd api
     ```
-2. Start script
+2. Set up API_KEY value by your before generated key
+3. Start script
     ```
     python main.py
     ```
