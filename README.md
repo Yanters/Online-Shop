@@ -1,4 +1,4 @@
-#Prestashop
+# Prestashop
 
 ## Technologies
 - Docker
