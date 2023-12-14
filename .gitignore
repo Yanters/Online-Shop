@@ -1,11 +1,19 @@
+# Shop directory
 Shop/src
 Shop/database
 Shop/db_dump
-scraper/venv
-__pycache__
 Shop/ssl/prestashop.crt
 Shop/ssl/prestashop.key
-scraper/venv
+
+# Python specific
+__pycache__
 .venv
-Shop/venv
+venv
+
+# Results and backups
 results/images
+backup_*
+data_*
+
+# Miscellaneous
+DS*

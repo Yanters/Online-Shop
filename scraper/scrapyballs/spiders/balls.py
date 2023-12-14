@@ -1,9 +1,11 @@
 from concurrent.futures.thread import ThreadPoolExecutor
-from typing import Any, Optional
+from io import BytesIO
 import requests
 import scrapy
+from PIL import Image
 import json
 import os
+from PIL import Image
 
 all_products = []
 
@@ -50,18 +52,27 @@ class BallsSpider(scrapy.Spider):
         product_categories = response.css('span.posted_in a::text').getall()
         product_tags = response.css('span.tagged_as a::text').getall()
         product_short_description = response.css('div.product-short-description p::text').get()
+        if not product_short_description:
+             product_short_description = response.css('div.product-short-description span::text').get()
+        if not product_short_description:
+            product_short_description = "Tutaj miał być krótki opis produktu, ale producent sklepu, z którego pobieramy produkty go nie zapewnił. Przepraszamy za utrudnienia."
         product_description = response.css('div.woocommerce-Tabs-panel--description p::text').getall()
+        if not product_description:
+             product_description = response.css('div.woocommerce-Tabs-panel--description span::text').getall()
+        if not product_description:
+             product_description = "Tutaj miał być długi i rozbudowany opis produktu, ale producent sklepu, z którego pobieramy produkty go nie zapewnił. Przepraszamy za utrudnienia."
         
         product_images_html = response.css('div.woocommerce-product-gallery__image a')
         product_images = []
         for image_html in product_images_html.xpath('./img'):
             image_url = image_html.css('::attr(data-src)').get()
             img_data = requests.get(image_url).content
-            img_name = image_url.split('/')[-1] 
-            # product_images.append(image_url)
+            img_name = '_'.join(image_url.split('/')[-3:]) 
+            img_name = img_name.replace('.jpg', '.png').replace('.jpeg', '.png').replace('.gif', '.png').replace('.bmp', '.png').replace('.webp', '.png').replace('.ico', '.png').replace('.svg', '.png').replace('.tif', '.png').replace('.tiff', '.png')
+            img = Image.open(BytesIO(img_data))
+            img = img.convert('RGB')
+            img.save(f'../results/images/{img_name}', 'PNG')
             product_images.append(img_name)
-            with open(f'../results/images/{img_name}', 'wb') as handler:
-                handler.write(img_data)
 
         product = {
             'link': product_link,
