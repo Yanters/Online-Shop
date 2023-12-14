@@ -67,7 +67,7 @@ class BallsSpider(scrapy.Spider):
         for image_html in product_images_html.xpath('./img'):
             image_url = image_html.css('::attr(data-src)').get()
             img_data = requests.get(image_url).content
-            img_name = image_url.split('/')[-1]
+            img_name = '_'.join(image_url.split('/')[-3:]) 
             img_name = img_name.replace('.jpg', '.png').replace('.jpeg', '.png').replace('.gif', '.png').replace('.bmp', '.png').replace('.webp', '.png').replace('.ico', '.png').replace('.svg', '.png').replace('.tif', '.png').replace('.tiff', '.png')
             img = Image.open(BytesIO(img_data))
             img = img.convert('RGB')

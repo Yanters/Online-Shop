@@ -100,9 +100,9 @@ def load_product(product):
         product_schema['product']['name']['language']['value'] = product["name"]
         product_schema["product"]["meta_title"]["language"]["value"] = product["name"]
         product_schema["product"]["id_shop_default"] = 1
-        product_schema["product"]["reference"] = int(product["sku"])
+        product_schema["product"]["reference"] = str(product["sku"])
         product_schema["product"]["id_tax_rules_group"] = 1
-        product_schema['product']['price'] = round(float(product["price"])/1.23, 2)
+        product_schema['product']['price'] = round(float(product["price"].replace(',', ''))/1.23, 2)
         product_schema['product']['description']['language']['value'] = product["description"]
         product_schema['product']['description_short']['language']['value'] = product["short_description"]
         product_schema["product"]["active"] = 1
