@@ -57,7 +57,7 @@ def register_user() -> None:
     driver.find_element(By.CSS_SELECTOR, "#field-firstname").send_keys("Bob")
     driver.find_element(By.CSS_SELECTOR, "#field-lastname").send_keys("Bobob")
     driver.find_element(By.CSS_SELECTOR, "#field-email").send_keys(
-        "rjq03526@omeie.com"
+        "vuz13593@nezid.com"
     )  # change it after first use
     driver.find_element(By.CSS_SELECTOR, "#field-password").send_keys("bobbob")
     driver.find_element(
@@ -80,8 +80,8 @@ def test() -> None:
     # a. - add 10 items to cart
     amounts = [3, 2, 1, 2, 1, 2, 1, 2, 1, 1]
     amounts_index = 0
-    for j in [1381, 1382]: #################################################################### subcategories
-        menu = driver.find_element(By.CSS_SELECTOR, "#category-1379 > a") ##################### category
+    for j in [1552, 1553]: #################################################################### subcategories
+        menu = driver.find_element(By.CSS_SELECTOR, "#category-1550 > a") ##################### category
         submenu = driver.find_element(By.CSS_SELECTOR, f"#category-{j} > a")
         ActionChains(driver).move_to_element(menu).click(submenu).perform()
 
@@ -103,7 +103,7 @@ def test() -> None:
     (
         driver.find_element(
             By.CSS_SELECTOR, "#search_widget > form > input.ui-autocomplete-input"
-        ).send_keys("REGIONALNE - PARZENICA CZARNA NA CZERWONYM POŁYSKU", Keys.RETURN)
+        ).send_keys("REGIONALNE", Keys.RETURN)
     )
     driver.find_element(
         By.CSS_SELECTOR,
