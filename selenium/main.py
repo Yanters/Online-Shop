@@ -103,7 +103,8 @@ def test() -> None:
     (
         driver.find_element(
             By.CSS_SELECTOR, "#search_widget > form > input.ui-autocomplete-input"
-        ).send_keys("REGIONALNE", Keys.RETURN)
+        ).send_keys("REGIONALNE - PARZENICA CZARNA NA CZERWONYM POŁYSKU", Keys.RETURN)
+
     )
     driver.find_element(
         By.CSS_SELECTOR,
